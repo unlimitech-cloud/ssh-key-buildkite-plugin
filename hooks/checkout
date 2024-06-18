@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -euo pipefail
+
+DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
+
+# shellcheck source=lib/plugin.bash
+. "${DIR}/../lib/plugin.bash"
+
+REPOSITORY_URL_OPTION=$(plugin_read_config REPOSITORY_URL "")
+SSH_SECRET_KEY_NAME_OPTION=$(plugin_read_config SSH_SECRET_KEY_NAME "GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY")
+CHECKOUT_PATH_OPTION=$(plugin_read_config CHECKOUT_PATH "./")
+
+echo "Running plugin with options:"
+echo " - repository-url: ${REPOSITORY_URL_OPTION}"
+echo " - ssh-secret-key-name: ${SSH_SECRET_KEY_NAME_OPTION}"
+echo " - checkout-path: ${CHECKOUT_PATH_OPTION}"
+
