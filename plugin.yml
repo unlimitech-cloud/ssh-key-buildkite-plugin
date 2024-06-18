@@ -1,14 +1,14 @@
-name: Buildkite Plugin
+name: Git SSH Checkout Buildkite Plugin
 description: Exceptional functionality
 author: https://github.com/buildkite-plugins
 requirements:
   - bash
 configuration:
   properties:
-    mandatory:
+    repository-url:
       type: string
-    optional:
+    ssh-secret-key-name:
       type: string
-  required:
-    - mandatory
+    checkout-path:
+      type: string
   additionalProperties: false
