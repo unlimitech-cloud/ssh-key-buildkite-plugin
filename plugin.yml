@@ -1,5 +1,5 @@
 name: Git SSH Checkout Buildkite Plugin
-description: Exceptional functionality
+description: A plugin to replace the default checkout functionality with arbitrary SSH based checkout
 author: https://github.com/buildkite-plugins
 requirements:
   - bash
