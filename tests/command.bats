@@ -23,7 +23,7 @@ setup() {
   assert_output --partial '- repository-url: '
 }
 
-@test "Optional value changes bejaviour" {
+@test "Optional value changes behaviour" {
   export BUILDKITE_PLUGIN_GIT_SSH_CHECKOUT_REPOSITORY_URL='git@example.com:org/repo.git'
   export BUILDKITE_PLUGIN_GIT_SSH_CHECKOUT_SSH_SECRET_KEY_NAME='SUPER_SECRET_KEY'
 
