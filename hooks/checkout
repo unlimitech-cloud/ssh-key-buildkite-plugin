@@ -26,5 +26,5 @@ if [ "${DRY_RUN}" != "true" ]; then
 
   # Clone the repository
   git clone "${REPOSITORY_URL_OPTION}" "${CHECKOUT_PATH_OPTION}" \
-    --config core.sshCommand="ssh -i ${KEY_NAME}" -o StrictHostKeyChecking=no
+    --config core.sshCommand="ssh -i ${KEY_NAME}" -y -o StrictHostKeyChecking=no
 fi
