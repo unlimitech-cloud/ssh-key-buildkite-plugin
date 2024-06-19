@@ -5,36 +5,31 @@ setup() {
 
   # Uncomment to enable stub debugging
   # export CURL_STUB_DEBUG=/dev/tty
-
-  # you can set variables common to all tests here
-  export BUILDKITE_PLUGIN_YOUR_PLUGIN_NAME_MANDATORY='Value'
+  export DRY_RUN='true'
 }
 
-@test "Missing mandatory option fails" {
-  unset BUILDKITE_PLUGIN_YOUR_PLUGIN_NAME_MANDATORY
+@test "Running without arguments succeeds" {
+  run "${PWD}/hooks/checkout"
 
-  run "$PWD"/hooks/command
-
-  assert_failure
-  assert_output --partial 'Missing mandatory option'
-  refute_output --partial 'Running plugin'
+  assert_success
+  assert_output --partial 'Running SSH Checkout plugin'
 }
 
 @test "Normal basic operations" {
-
-  run "$PWD"/hooks/command
+  run "${PWD}/hooks/checkout"
 
   assert_success
-  assert_output --partial 'Running plugin with options'
-  assert_output --partial '- mandatory: Value'
+  assert_output --partial 'Running SSH Checkout plugin with options'
+  assert_output --partial '- repository-url: '
 }
 
 @test "Optional value changes bejaviour" {
-  export BUILDKITE_PLUGIN_YOUR_PLUGIN_NAME_OPTIONAL='other value'
+  export BUILDKITE_PLUGIN_GIT_SSH_CHECKOUT_REPOSITORY_URL='git@example.com:org/repo.git'
+  export BUILDKITE_PLUGIN_GIT_SSH_CHECKOUT_SSH_SECRET_KEY_NAME='SUPER_SECRET_KEY'
 
-  run "$PWD"/hooks/command
+  run "${PWD}/hooks/checkout"
 
   assert_success
-  assert_output --partial 'Running plugin with options'
-  assert_output --partial '- optional: other value'
+  assert_output --partial 'Running SSH Checkout plugin with options'
+  assert_output --partial '- ssh-secret-key-name: SUPER_SECRET_KEY'
 }
