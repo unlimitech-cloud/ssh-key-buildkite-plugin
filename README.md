@@ -2,7 +2,8 @@
 
 A Buildkite plugin for arbitrary Git SSH checkout.
 
-**This plugin is only relevant in a Hosted Agent context.** The cluster secrets functionality is utilised for storing the SSH key, which is only available with the hosted agents.
+> [!NOTE]
+> This plugin utilises the [buildkite-agent secret](https://buildkite.com/docs/agent/v3/cli-secret) functionality for storing the SSH key that will be used for checking out the Git repository.
 
 ## Options
 
