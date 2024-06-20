@@ -29,7 +29,8 @@ By default, the path will be `.`, the base path for the current build.
 
 ## Usage
 
-The primary use-case for this plugin is within an environment where the pipeline repository configuration cannot be completely utilised, such as using a non-Github repository when working with hosted agents. This plugin can be used within the base steps for a pipeline to allow for the initial repository clone and further pipelines to be loaded.
+> [!TIP]
+> The primary use-case for this plugin is within an environment where the pipeline repository configuration cannot be completely utilised, such as using a non-Github repository when working with hosted agents. This plugin can be used within the base steps for a pipeline to allow for the initial repository clone and further pipelines to be loaded.
 
 When a pipeline is created, the core focus is around the repository that will contain the context that builds happen within, especially things like further pipelines. Consider the following screenshot.
 
@@ -56,7 +57,8 @@ The plugin will now replace the `checkout` functionality, and take the key from 
 
 ### Uploaded steps
 
-Each step that works with the repository will need to include this plugin, as each time there's a checkout it needs to be replaced. This will mean copy-pasting the yaml each time. To lower the number of duplicated code lines, we can use [yaml anchors](https://www.educative.io/blog/advanced-yaml-syntax-cheatsheet#widget-parent-sKxMrCO3hs1xwmkqj7yLg%20__className_95156b%20__variable_95156b) to have yaml do the duplication for us.
+> [!IMPORTANT]
+> Each step that works with the repository will need to include this plugin, as each time there's a checkout it needs to be replaced. This will mean copy-pasting the yaml each time. To lower the number of duplicated code lines, we can use [yaml anchors](https://www.educative.io/blog/advanced-yaml-syntax-cheatsheet#widget-parent-sKxMrCO3hs1xwmkqj7yLg%20__className_95156b%20__variable_95156b) to have yaml do the duplication for us.
 
 Within a pipeline, we may then have some yaml like the following.
 
