@@ -16,7 +16,7 @@ setup() {
   assert_output --partial 'Running SSH Checkout plugin'
   assert_output --partial '- repository-url: git@example.com:organisation/repository.git'
   assert_output --partial '- ssh-secret-key-name: GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY'
-  assert_output --partial '- checkout-path: ./'
+  assert_output --partial '- checkout-path: .'
 }
 
 @test "Normal basic operations" {
@@ -27,7 +27,7 @@ setup() {
   assert_output --partial 'Running SSH Checkout plugin with options'
   assert_output --partial '- repository-url: git@example.com:org/repo.git'
   assert_output --partial '- ssh-secret-key-name: GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY'
-  assert_output --partial '- checkout-path: ./'
+  assert_output --partial '- checkout-path: .'
 }
 
 @test "Optional value changes behaviour" {
