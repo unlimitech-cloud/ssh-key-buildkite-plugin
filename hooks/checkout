@@ -7,11 +7,24 @@ DIR="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 # shellcheck source=lib/plugin.bash
 . "${DIR}/../lib/plugin.bash"
 
+DRY_RUN="${DRY_RUN:-}"
+KEY_NAME="../git_ssh_checkout_plugin_ssh_key"
+
 REPOSITORY_URL_OPTION=$(plugin_read_config REPOSITORY_URL "${BUILDKITE_REPO:-}")
 SSH_SECRET_KEY_NAME_OPTION=$(plugin_read_config SSH_SECRET_KEY_NAME "GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY")
-CHECKOUT_PATH_OPTION=$(plugin_read_config CHECKOUT_PATH "./")
+CHECKOUT_PATH_OPTION=$(plugin_read_config CHECKOUT_PATH "${BUILDKITE_BUILD_CHECKOUT_PATH:-.}")
 
 echo "Running SSH Checkout plugin with options:"
-echo " - repository-url: ${REPOSITORY_URL_OPTION} vs. ${BUILDKITE_REPO:-}"
-echo " - ssh-secret-key-name: ${SSH_SECRET_KEY_NAME_OPTION} vs. ${BUILDKITE_GIT_CLONE_FLAGS:-}"
-echo " - checkout-path: ${CHECKOUT_PATH_OPTION} vs. ${BUILDKITE_BUILD_CHECKOUT_PATH:-}"
+echo " - repository-url: ${REPOSITORY_URL_OPTION}"
+echo " - ssh-secret-key-name: ${SSH_SECRET_KEY_NAME_OPTION}"
+echo " - checkout-path: ${CHECKOUT_PATH_OPTION}"
+
+if [ "${DRY_RUN}" != "true" ]; then
+  # Populate the key file from the secret value
+  buildkite-agent secret get "${SSH_SECRET_KEY_NAME_OPTION}" > "${KEY_NAME}"
+  chmod 0400 "${KEY_NAME}"
+
+  # Clone the repository
+  git clone "${REPOSITORY_URL_OPTION}" "${CHECKOUT_PATH_OPTION}" \
+    --config core.sshCommand="ssh -i ${KEY_NAME} -o StrictHostKeyChecking=no -y"
+fi
