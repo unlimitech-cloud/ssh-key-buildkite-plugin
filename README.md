@@ -5,28 +5,6 @@ A Buildkite plugin for arbitrary Git SSH checkout.
 > [!NOTE]
 > This plugin utilises the [buildkite-agent secret](https://buildkite.com/docs/agent/v3/cli-secret) functionality for storing the SSH key that will be used for checking out the Git repository.
 
-## Options
-
-### Optional
-
-#### `repository-url` (string)
-
-The full URL for referencing the repository. This is typically in the form of `git@{hostname}:{organisation}/{repository}.git`.
-
-By default, the value for this will be the value of the `BUILDKITE_REPO` environment variable.
-
-#### `ssh-secret-key-name` (string)
-
-The name of the [secrets](https://buildkite.com/docs/agent/v3/cli-secret) key that contains the SSH key for interacting with the Git repository.
-
-By default, the key name is `GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY`.
-
-#### `checkout-path` (string)
-
-Replace the path the repository will be checked out to.
-
-By default, the path will be `.`, the base path for the current build.
-
 ## Usage
 
 > [!TIP]
@@ -83,6 +61,28 @@ steps:
 ```
 
 Here we define the anchors in the first step, use the full list in the second, then in the third take the small anchor as we want to add more plugins to the list.
+
+## Options
+
+### Optional
+
+#### `repository-url` (string)
+
+The full URL for referencing the repository. This is typically in the form of `git@{hostname}:{organisation}/{repository}.git`.
+
+By default, the value for this will be the value of the `BUILDKITE_REPO` environment variable.
+
+#### `ssh-secret-key-name` (string)
+
+The name of the [secrets](https://buildkite.com/docs/agent/v3/cli-secret) key that contains the SSH key for interacting with the Git repository.
+
+By default, the key name is `GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY`.
+
+#### `checkout-path` (string)
+
+Replace the path the repository will be checked out to.
+
+By default, the path will be `.`, the base path for the current build.
 
 ## Examples
 
