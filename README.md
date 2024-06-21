@@ -86,7 +86,7 @@ By default, the key name is `GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY`.
 
 Replace the path the repository will be checked out to.
 
-By default, the path will be `.`, the base path for the current build.
+By default, the path will be the value of `BUILDKITE_BUILD_CHECKOUT_PATH`, the base path for the current build.
 
 ## Examples
 
