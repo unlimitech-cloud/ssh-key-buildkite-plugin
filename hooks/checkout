@@ -34,11 +34,13 @@ if [ "${DRY_RUN}" != "true" ]; then
   git clean -ffxdq
 
   # Checkout the branch
-  if [ "${BUILDKITE_BRANCH}" != "" ]; then
+  if [ "${BUILDKITE_BRANCH:-}" != "" ]; then
     # Fetch the branch
     git fetch -v --prune -- origin "refs/heads/${BUILDKITE_BRANCH}"
+  fi
 
-    # Checkout the SHA
+  # Checkout the SHA
+  if [ "${BUILDKITE_COMMIT:-}" != "" ]; then
     git checkout -f "${BUILDKITE_COMMIT}"
   fi
 fi
