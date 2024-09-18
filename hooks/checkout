@@ -27,4 +27,14 @@ if [ "${DRY_RUN}" != "true" ]; then
   # Clone the repository
   git clone "${REPOSITORY_URL_OPTION}" "${CHECKOUT_PATH_OPTION}" \
     --config core.sshCommand="ssh -i ${KEY_NAME} -o StrictHostKeyChecking=no -y"
+
+  cd "${CHECKOUT_PATH_OPTION}"
+
+  # Clean up the clone
+  git clean -ffxdq
+
+  # Checkout the branch
+  if [ "${BUILDKITE_BRANCH}" != "" ]; then
+    git fetch -v --prune -- origin "refs/heads/${BUILDKITE_BRANCH}"
+  fi
 fi
