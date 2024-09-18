@@ -35,6 +35,10 @@ if [ "${DRY_RUN}" != "true" ]; then
 
   # Checkout the branch
   if [ "${BUILDKITE_BRANCH}" != "" ]; then
+    # Fetch the branch
     git fetch -v --prune -- origin "refs/heads/${BUILDKITE_BRANCH}"
+
+    # Checkout the SHA
+    git checkout -f "${BUILDKITE_COMMIT}"
   fi
 fi
