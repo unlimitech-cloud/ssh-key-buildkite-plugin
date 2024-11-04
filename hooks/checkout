@@ -39,8 +39,10 @@ if [ "${DRY_RUN}" != "true" ]; then
     git fetch -v --prune -- origin "refs/heads/${BUILDKITE_BRANCH}"
   fi
 
-  # Checkout the SHA
-  if [ "${BUILDKITE_COMMIT:-}" != "" ]; then
+  # Checkout the correct ref to continue the build
+  if [ "${BUILDKITE_COMMIT:-}" = "HEAD" ] || [ "${BUILDKITE_COMMIT}" = "" ]; then
+    git checkout -f "origin/${BUILDKITE_BRANCH}"
+  else
     git checkout -f "${BUILDKITE_COMMIT}"
   fi
 fi
