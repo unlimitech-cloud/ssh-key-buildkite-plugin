@@ -13,6 +13,8 @@ KEY_NAME="../git_ssh_checkout_plugin_ssh_key"
 REPOSITORY_URL_OPTION=$(plugin_read_config REPOSITORY_URL "${BUILDKITE_REPO:-}")
 SSH_SECRET_KEY_NAME_OPTION=$(plugin_read_config SSH_SECRET_KEY_NAME "GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY")
 CHECKOUT_PATH_OPTION=$(plugin_read_config CHECKOUT_PATH "${BUILDKITE_BUILD_CHECKOUT_PATH:-.}")
+CHECKOUT_BRANCH=$(plugin_read_config BRANCH "${BUILDKITE_BRANCH:-.}")
+CHECKOUT_COMMIT=$(plugin_read_config COMMIT "${BUILDKITE_COMMIT:-.}")
 
 echo "Running SSH Checkout plugin with options:"
 echo " - repository-url: ${REPOSITORY_URL_OPTION}"
@@ -34,15 +36,15 @@ if [ "${DRY_RUN}" != "true" ]; then
   git clean -ffxdq
 
   # Checkout the branch
-  if [ "${BUILDKITE_BRANCH:-}" != "" ]; then
+  if [ "${CHECKOUT_BRANCH:-}" != "" ]; then
     # Fetch the branch
-    git fetch -v --prune -- origin "refs/heads/${BUILDKITE_BRANCH}"
+    git fetch -v --prune -- origin "refs/heads/${CHECKOUT_BRANCH}"
   fi
 
   # Checkout the correct ref to continue the build
-  if [ "${BUILDKITE_COMMIT:-}" = "HEAD" ] || [ "${BUILDKITE_COMMIT}" = "" ]; then
-    git checkout -f "origin/${BUILDKITE_BRANCH}"
+  if [ "${CHECKOUT_COMMIT:-}" = "HEAD" ] || [ "${CHECKOUT_COMMIT}" = "" ]; then
+    git checkout -f "origin/${CHECKOUT_BRANCH}"
   else
-    git checkout -f "${BUILDKITE_COMMIT}"
+    git checkout -f "${CHECKOUT_COMMIT}"
   fi
 fi
