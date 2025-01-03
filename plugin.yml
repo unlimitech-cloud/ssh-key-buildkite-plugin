@@ -5,10 +5,6 @@ requirements:
   - bash
 configuration:
   properties:
-    repository-url:
-      type: string
     ssh-secret-key-name:
-      type: string
-    checkout-path:
       type: string
   additionalProperties: false
