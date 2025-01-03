@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-PLUGIN_PREFIX="GIT_SSH_CHECKOUT"
+PLUGIN_PREFIX="SSH_KEY"
 
 # Reads either a value or a list from the given env prefix
 function prefix_read_list() {
