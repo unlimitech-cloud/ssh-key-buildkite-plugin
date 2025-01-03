@@ -1,7 +1,8 @@
 #!/bin/bash
 
-echo "Running pre-checkout hook from my-plugin..."
-printf "%s\n" "$(buildkite-agent secret get BITBUCKET_SSH_UCLOUD)" > ~/.ssh/id_rsa
+echo "Running pre-checkout hook from ssh-key plugin..."
+SSH_SECRET_KEY_NAME_OPTION=$(plugin_read_config SSH_SECRET_KEY_NAME "GIT_SSH_CHECKOUT_PLUGIN_SSH_KEY")
+printf "%s\n" "$(buildkite-agent secret get $SSH_SECRET_KEY_NAME_OPTION)" > ~/.ssh/id_rsa
 chmod 600 ~/.ssh/id_rsa
 ls -la ~/.ssh
 echo $(realpath ~/.ssh) 
