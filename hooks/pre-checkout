@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "Running pre-checkout hook from my-plugin..."
+ls -la ~/.ssh
