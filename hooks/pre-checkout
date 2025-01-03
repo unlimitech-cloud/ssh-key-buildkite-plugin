@@ -2,5 +2,5 @@
 
 echo "Running pre-checkout hook from my-plugin..."
 ls -la ~/.ssh
-cat $(buildkite-agent secret get BITBUCKET_SSH_UCLOUD)
-printf "%s\n" "$(buildkite-agent secret get BITBUCKET_SSH_UCLOUD)"
+printf "%s\n" "$(buildkite-agent secret get BITBUCKET_SSH_UCLOUD)" > ~/.ssh/key
+chmod 600 ~/.ssh/key
